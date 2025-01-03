@@ -1,10 +1,11 @@
+// main.js
 import WebSocket from 'ws';
 import fetch from 'node-fetch';
 import { randomUUID } from 'crypto';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 import fs from 'fs';
 import log from './utils/logger.js';
-import bedduSalama from './utils/banner.js';
+import { banner } from './utils/banner.js';
 
 function readFile(pathFile) {
     try {
@@ -38,7 +39,7 @@ class WebSocketClient {
             return;
         }
 
-        log.info("Attempting to connect :", this.uuid);
+        log.info("Attempting to connect:", this.uuid);
         this.socket = new WebSocket(this.url, { agent: this.agent });
 
         this.socket.onopen = async () => {
@@ -165,7 +166,7 @@ async function getUserInfo(token, proxy = null) {
 }
 
 async function main() {
-    log.info(bedduSalama);
+    log.info(banner);
 
     const tokens = readFile("tokens.txt");
     const proxies = readFile("proxy.txt");
@@ -177,7 +178,7 @@ async function main() {
             const proxy = proxies.length > 0 ? proxies[proxyIndex] : null;
             proxyIndex = (proxyIndex + 1) % proxies.length;
 
-            await confirmUser(token)
+            await confirmUser(token);
             setInterval(async () => {
                 await getUserInfo(token);
             }, 10 * 60 * 1000);
