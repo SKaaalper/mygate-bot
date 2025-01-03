@@ -1,4 +1,3 @@
-// main.js
 import WebSocket from 'ws';
 import fetch from 'node-fetch';
 import { randomUUID } from 'crypto';
@@ -122,7 +121,7 @@ async function registerNode(token, proxy = null) {
             log.info(`Retrying in 10 seconds...`);
             await new Promise(resolve => setTimeout(resolve, 10000));
             retries++;
-            await registerNode();
+            return registerNode(token, proxy);  // Make sure to return the result of the recursive call
         } else {
             log.error("Max retries exceeded; giving up on registration.");
             return null;
@@ -131,12 +130,12 @@ async function registerNode(token, proxy = null) {
 }
 
 async function confirmUser(token) {
-    const confirm = await fetch("https://api.mygate.network/api/front/referrals/referral/LfBWAQ?", {
+    const confirm = await fetch("https://api.mygate.network/api/front/referrals/referral/IFXIhg?", {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({})
     });
     const confirmData = await confirm.json();
     log.info("Confirm user response:", confirmData);
@@ -201,3 +200,4 @@ async function main() {
 }
 
 main();
+
