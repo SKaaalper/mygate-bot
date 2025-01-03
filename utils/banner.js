@@ -11,7 +11,7 @@ export const banner = `
           ╚═════╝ ╚══════╝  ╚═══╝      ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
                                                      
                   Running Mygate-bot BETA CLI Version                
-                     ***github.com/SKaaalper***
+                      ***github.com/SKaaalper***
 `;
 
 console.log(banner);
