@@ -136,7 +136,7 @@ async function confirmUser(token) {
         headers: {
             "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({})
+        body: JSON.stringify({}),
     });
     const confirmData = await confirm.json();
     log.info("Confirm user response:", confirmData);
